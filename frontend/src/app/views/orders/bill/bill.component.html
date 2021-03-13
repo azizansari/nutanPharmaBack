@@ -1,0 +1,138 @@
+<div class="receipt-content">
+  <div class="container bootstrap snippets bootdey">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="invoice-wrapper">
+          <div class="payment-details">
+            <div class="row">
+              <div class="col-sm-8">
+                <h2>M/s Nutan Pharma Medical</h2>
+                <p>
+                  67, Ashta <br />
+                  Ph No. 345343534 <br />
+                  <strong>DL No.</strong> 20/695/30/2020<br />
+                </p>
+              </div>
+              <div class="col-sm-4 text-right">
+                <h4>Customer Name : {{ bill?.customerName }}</h4>
+                <p>Contact : {{ bill?.customerContact }}<br /></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="line-items">
+            <div class="invoice-heading row" style="border: 1px solid gray; margin-left: 1px; margin-right: 1px; ">
+              <div class="item1 col-sm-4" style="padding-top: 5px; padding-bottom: 5px;">
+                <strong>DL No.</strong> : 20B-24, 21B-25 <br>
+                <strong>GSTIN</strong> : 23AADFG2132L1ZR
+              </div>
+              <div class="item2 col-sm-4" style="padding: 12px; border-left: 1px solid gray ; border-right: 1px solid gray ; text-align: center;" >
+                <h4>GST INVOICE</h4>
+              </div>
+              <div class="item3 col-sm-4" style="padding-top: 5px; padding-bottom: 5px;">
+                Invoice No. : <strong>NU{{ bill?.invoiceId }} </strong><br>
+                    Date : {{ paymentDate | amDateFormat: "l" }}
+              </div>
+            </div>
+
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>S. No.</th>
+                  <th>Product Name</th>
+                  <th>Packing</th>
+                  <th>Expiry</th>
+                  <th>Quantity</th>
+                  <th>Rate</th>
+                  <th>GST</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of items; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ item?.medicine }}</td>
+                  <td>{{ item?.pcaking }}</td>
+                  <td>{{ item?.expiry | amDateFormat: "MMM YYYY" }}</td>
+                  <td>{{ item?.orderQuantity }}</td>
+                  <td>{{ item?.rate }}</td>
+                  <td>{{bill?.gstRate}} %</td>
+                  <td>{{ item?.total | number: "2.2-2" | currency: "INR" }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="row" style="border: 1px solid gray; margin: 1px; margin-top: 0px;">
+              <div class="col-sm-6 text-left">
+                <p >
+                  <strong>
+                    Terms & Conditions
+                  </strong><br />
+                  All Disputed Subjected to Ashta jurisdiction <br/>
+                  A/C No. : 566575757575<br/>
+                  IFSC Code : CN3425562334, Canara Bank
+              
+                </p>
+              </div>
+              <div class="col-sm-6">
+                <table class="table" style="margin: 0px; padding: 0px;">
+                  <thead>
+                    <tr>
+                      <th>Sub Total</th>
+                      <th>
+                        {{ bill?.subTotal | number: "2.2-2" | currency: "INR" }}
+                      </th>
+                    </tr>
+                    <tr>
+                      <th>GST @ {{ bill?.gstRate }} %</th>
+                      <th>
+                        {{ bill?.gstAmount | number: "2.2-2" | currency: "INR" }}
+                      </th>
+                    </tr>
+                    <tr *ngIf="bill?.discount" >
+                      <th>Discount</th>
+                      <th>
+                        {{ bill?.discount | number: "2.2-2" | currency: "INR" }}
+                      </th>
+                    </tr>
+                    <tr>
+                      <th>Grand Total</th>
+                      <th>
+                        {{ bill?.grandTotal | number: "2.2-2" | currency: "INR" }}
+                      </th>
+                    </tr>
+                    <tr>
+                      <th>Paid Amount</th>
+                      <th>
+                        {{ bill?.paidAmount | number: "2.2-2" | currency: "INR" }}
+                      </th>
+                    </tr>
+                    <tr *ngIf="bill?.dueAmount">
+                      <th>Due Amount</th>
+                      <th>
+                        {{ bill?.dueAmount | number: "2.2-2" | currency: "INR" }}
+                      </th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+   
+              
+            </div>
+
+
+            <div class="row">
+
+
+            </div>
+            <span>This is an auto generated invoice no signature required</span>
+            <div class="print">
+              <button (click)="printBill()">print</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">Copyright © Nutan Pharma</div>
+      </div>
+    </div>
+  </div>
+</div>
